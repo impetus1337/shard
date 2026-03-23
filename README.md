@@ -23,17 +23,27 @@ Em vez de começar por uma engine genérica e completa, o projeto prioriza apena
 
 ## Estrutura inicial
 
-- `engine/`: código dos subsistemas próprios da engine necessários para o Marco 1.
-- `game/`: regras, conteúdo e integração específica do jogo.
+- `engine/`: runtime reutilizável com loop principal, renderer 2D, input abstraction, asset manager, tilemap, câmera e colisão básica.
+- `game/`: conteúdo e regras do jogo, incluindo cena da ilha, personagem, configuração inicial e lógica de movimentação.
 - `platform/android/`: bootstrap, empacotamento e integração com Android.
 - `assets/`: recursos do jogo, como mapas, sprites, tilesets, áudio e dados.
 - `tools/`: scripts e utilitários de apoio ao pipeline mínimo.
 - `docs/`: documentação de escopo, arquitetura e planejamento.
 
+## Contrato entre as camadas
+
+A integração entre runtime e jogo deve acontecer por callbacks simples:
+
+- `init(context)`;
+- `update(context)`;
+- `render(context)`.
+
+A engine cria o `context` com acesso aos seus serviços genéricos e o jogo usa esse contexto para aplicar regras sem acoplamento direto com implementações internas do runtime.
+
 ## Documentação principal
 
 - `docs/roadmap.md`: definição do Marco 1 e evolução prevista por etapas.
-- `docs/architecture.md`: separação entre partes próprias da engine e dependências externas aceitas.
+- `docs/architecture.md`: separação entre runtime da engine e camada de jogo.
 
 ## Fora de escopo no Marco 1
 
